@@ -31,29 +31,11 @@ so your installed copy in `~/.copilot/skills` stays in sync.
 ls ~/.copilot/skills
 ```
 
-You should see installed skill folders (for example, `node-version-upgrade`).
-
-Current skills in this repo include:
-
-- `feature-flag-rollout-implementer`
-- `local-code-review`
-- `node-version-upgrade`
-- `variant-passport`
-
 In Copilot Chat, prompt:
 
 `what skills do you have access to`
 
 You should see your installed skills listed.
-
-## Available Skills
-
-| Skill | Description |
-| ----------- | ----------- |
-| [Feature Flag Implementer](./skills/feature-flag-rollout-implementer/) | Guidance for adding or extending feature flags safely across backend and frontend paths. |
-| [Local code review](./skills/local-code-review/) | Standardised local static branch review workflow using generated review context. |
-| [Node version upgrade](./skills/node-version-upgrade/) | Guidance for upgrading HMPO Node services from Node 20 to Node 24 safely. |
-| [Variant passport](./skills/variant-passport/) | Guidance for explaining, reviewing, testing, and safely extending the HMPO variant passport journey. |
 
 ## How To Run Skills
 
@@ -74,7 +56,7 @@ If you are already in the app directory you want reviewed, run this command in t
 If you want the skill to be more precise and resolve the repository path more quickly, provide the app name explicitly:
 
 ```text
-/local-code-review application-data-change
+/local-code-review web-frontend
 ```
 
 The skill will:
