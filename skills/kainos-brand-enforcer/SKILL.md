@@ -9,6 +9,31 @@ Every Word doc, PowerPoint deck, PDF, or branded frontend UI produced with this 
 
 ---
 
+## Where the reference files live (READ FIRST — common failure)
+
+**Every `references/...` path in this skill and in its reference files is relative to the installed skill directory, NOT to the repo or project you are currently working in.**
+
+The skill directory is the folder containing this `SKILL.md`. When installed for Copilot it is normally:
+
+```
+~/.copilot/skills/kainos-brand-enforcer/
+```
+
+So `references/templates/kainos-pptx-master.pptx` means `~/.copilot/skills/kainos-brand-enforcer/references/templates/kainos-pptx-master.pptx`.
+
+Do **not** search the user's working repo for `references/`, `brand-rules.md`, `assets/logos/`, or the templates. They are not there, and they are not supposed to be. Searching the working repo and finding nothing is the most common way this skill goes wrong — it leads to a "the brand package is missing" false alarm, or worse, a from-scratch colours-only build.
+
+**Resolve the skill directory once at the start of a run**, then use absolute paths. If the host agent exposes the skill's own path, prefer that — the package is designed to be copied into other repos and agents, so it will not always sit under `~/.copilot`.
+
+```bash
+SKILL_DIR="$HOME/.copilot/skills/kainos-brand-enforcer"
+ls "$SKILL_DIR/references/"
+```
+
+**Which paths are working-directory-relative:** only the outputs — `working/`, `working/unpacked/`, `output/`, and `grounding/downloads/`. Those belong in the user's current project or a scratch directory. Never write build artefacts into `$SKILL_DIR`, and never edit the bundled templates in place.
+
+---
+
 ## Before you run — pre-flight (READ FIRST)
 
 Surface these to the user up front and resolve them **before** building anything. They keep runs cheap, fast, and on-brand.
@@ -20,13 +45,12 @@ Surface these to the user up front and resolve them **before** building anything
 
 ## Model selection (cost control)
 
-- Use a reliable general coding/writing model for routine decks, documents, and UI work, especially mechanical XML editing, component styling, placing images, building tables, and applying tokens.
-- Reserve the strongest available reasoning model for genuinely complex or long-form jobs: multi-section reports, dense narrative decks, content strategy, or heavy synthesis.
-- When unsure, start with the standard model available in the host agent and escalate only if the *content reasoning* clearly needs it. Do not escalate just because the file mechanics are tedious.
+- Use a reliable general coding/writing model for routine decks, documents, and UI work — mechanical XML editing, component styling, placing images, building tables, applying tokens.
+- Reserve the strongest reasoning model for genuinely complex jobs: multi-section reports, dense narrative decks, content strategy, heavy synthesis. Escalate only when the *content reasoning* needs it, never because the file mechanics are tedious.
 
 ## What to load each run (keep context lean)
 
-Loading everything on every run is slow and expensive. Load only what the job needs:
+Loading everything on every run is slow and expensive. Load only what the job needs. Every path below is under the skill directory (`$SKILL_DIR`), not the user's repo:
 
 - **Always:** `references/brand-rules.md` — the pre-summarised cheat sheet. It distils the brand guide into the rules you actually enforce, so it's the only brand reference you load by default.
 - **For Word/PowerPoint/PDF:** the ONE template you need — copy just the single bundled template for the output type from `references/templates/` (the PowerPoint master *or* the Kainos Word template). Never load all templates into context.
@@ -196,14 +220,14 @@ Use the templates table above: `kainos-pptx-master.pptx` for PowerPoint and `kai
 
 ### Step 2 — Copy the template into `working/` (local, every run)
 
-Templates are bundled locally in `references/templates/`, so copy, verify, then build:
+Templates are bundled in the **skill directory**, not in the user's repo — see *Where the reference files live*. Copy, verify, then build:
 
-1. **Choose the local template.** PowerPoint → `references/templates/kainos-pptx-master.pptx`; Word → `references/templates/kainos-word-comprehensive.dotx`.
-2. **Copy it into `working/`.** Use `working/deck.pptx` or `working/doc.docx` as the editable copy.
+1. **Choose the local template.** PowerPoint → `$SKILL_DIR/references/templates/kainos-pptx-master.pptx`; Word → `$SKILL_DIR/references/templates/kainos-word-comprehensive.dotx`.
+2. **Copy it into `working/`** in the user's current project or a scratch directory — e.g. `cp "$SKILL_DIR/references/templates/kainos-pptx-master.pptx" working/deck.pptx`. Use `working/deck.pptx` or `working/doc.docx` as the editable copy.
 3. **Verify it.** Run the verify gate (see *Verify the working template* above): the quick zip/size check, then the layout-count check for PowerPoint.
-4. **If the copy or verification fails, stop and flag it before building.** Say whether the local template is missing, empty, corrupt, or has too few layouts. Do not attempt a workaround build.
+4. **If the copy or verification fails, stop and flag it before building.** Say whether the local template is missing, empty, corrupt, or has too few layouts. First re-check that you looked in the skill directory and not the working repo — that mistake produces a false "missing template" report. Do not attempt a workaround build.
 
-Never edit the bundled template in place. Always operate on the working copy in `working/`, and leave `references/templates/` as the pristine source.
+Never edit the bundled template in place. Always operate on the working copy in `working/`, and leave `$SKILL_DIR/references/templates/` as the pristine source.
 
 ### Step 3 — Edit the working copy via the editing workflow
 

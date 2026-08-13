@@ -1,5 +1,7 @@
 # UI and Web Branding Workflow
 
+> All `references/...` paths below are relative to the installed skill directory (normally `~/.copilot/skills/kainos-brand-enforcer/`), not to the repo you are working in. The logo PNGs are copied *out* of the skill directory *into* the target repo's static asset folder.
+
 Load this file when the task is to brand a website, app, page, component, stylesheet, design-token file, or any frontend implementation. For Word/PowerPoint/PDF work you do not need this file.
 
 Use this workflow for UI code in any stack: HTML, CSS, JavaScript, TypeScript, React, Vue, Angular, Svelte, Nunjucks, Handlebars, Django/Jinja, Flask templates, Rails ERB, Laravel Blade, Java/Spring Thymeleaf/JSP, ASP.NET Razor/Blazor, PHP, static sites, component libraries, native/mobile UI wrappers, internal tools, forms, dashboards, and prototypes.
