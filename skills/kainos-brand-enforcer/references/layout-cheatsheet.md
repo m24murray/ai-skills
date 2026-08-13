@@ -1,5 +1,7 @@
 # Layout cheat-sheet — Kainos PowerPoint master v2 (48 layouts)
 
+> All `references/...` paths below are relative to the installed skill directory (normally `~/.copilot/skills/kainos-brand-enforcer/`), not to the repo you are working in.
+
 **Auto-derived from the bundled `references/templates/kainos-pptx-master.pptx` (original source: SharePoint `Powerpoint master template v2.potx`, last refreshed 2026-06-22).** Regenerate this file whenever the bundled master template is replaced — the layout count, names, and `idx` numbers below come straight from that file, so a stale cheat-sheet sends the build to the wrong slot.
 
 - **`L<n>` = `slideLayout<n>.xml`** — the number is the real layout-part number, so `L41` is `ppt/slideLayouts/slideLayout41.xml`.

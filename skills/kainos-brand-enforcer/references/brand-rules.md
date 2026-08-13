@@ -1,5 +1,7 @@
 # Kainos Brand Rules — Operational Cheat Sheet
 
+> All `references/...` paths below are relative to the installed skill directory (normally `~/.copilot/skills/kainos-brand-enforcer/`), not to the repo you are working in.
+
 Distilled from *Kainos Brand and Visual Identity Guidelines, Version 1.0, April 2020*. For edge cases or detailed worked examples, consult `references/docs/brand-guide.pdf`.
 
 ---

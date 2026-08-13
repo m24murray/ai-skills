@@ -1,5 +1,7 @@
 # Visual assets (use these instead of recreating)
 
+> All `references/...` paths below are relative to the installed skill directory (normally `~/.copilot/skills/kainos-brand-enforcer/`), not to the repo you are working in. Fetched assets land in `grounding/downloads/` under the user's current project, never inside the skill directory.
+
 Load this file when a deliverable needs a logo variant beyond the bundled three, an icon, a sub-brand/customer/partner lockup, an illustration, or photography — or when you need to fill a picture/icon placeholder frame in a template layout.
 
 When the template doesn't already place a logo or icon for you, pull from the asset library — never reconstruct, redraw, or use an external icon set.
